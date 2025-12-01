@@ -4,10 +4,10 @@ CFLAGS   := -std=c99 -Wall -Werror -Wextra
 LDFLAGS  :=
 LDLIBS   := -lcurses
 
-BIN := main
-SRC := $(wildcard *.c)
-OBJ := $(SRC:.c=.o)
-DEP := $(SRC:.c=.d)
+TARGET := snake
+SRC    := $(wildcard *.c)
+OBJS   := $(SRC:.c=.o)
+DFS    := $(SRC:.c=.d)
 
 DEV := 0
 
@@ -17,14 +17,18 @@ else
 	CFLAGS += -O3
 endif
 
-$(BIN): $(OBJ)
+$(TARGET): $(OBJS)
+	$(CC) $(LDFLAGS) $(LDLIBS) -o $@ $^
 
--include $(DEP)
+%.o: %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
+
+-include $(DFS)
 
 .PHONY: run
-run: $(BIN)
-	./$(BIN)
+run: $(TARGET)
+	./$(TARGET)
 
 .PHONY: clean
 clean:
-	rm -rf $(OBJ) $(DEP) $(BIN)
+	rm -rf $(OBJS) $(DFS) $(TARGET)
