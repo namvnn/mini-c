@@ -1,4 +1,4 @@
-# Conventions
+# C Conventions
 
 ## Naming
 
