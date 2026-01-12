@@ -11,4 +11,8 @@ $(PROJECTS):
 
 .PHONY: fmt
 fmt:
-	clang-format -i ./**/*.[ch]
+	@find . -type f \
+		\( -name '*.c' -o -name '*.h' \) \
+		-not -path '*lib*' \
+		-not -path '*.git*' \
+		-exec clang-format -i {} '+'
