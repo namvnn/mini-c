@@ -5,11 +5,11 @@
 #include "snake.h"
 
 struct apple {
-  int width;
-  int height;
-  int x;
-  int y;
-  int color;
+    int width;
+    int height;
+    int x;
+    int y;
+    int color;
 };
 
 struct apple *apple_new(struct map *m, struct snake *s);

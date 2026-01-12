@@ -7,12 +7,12 @@
 #include "snake.h"
 
 struct scoreboard {
-  WINDOW *win;
-  int width;
-  int height;
-  int startx;
-  int starty;
-  int score;
+    WINDOW *win;
+    int width;
+    int height;
+    int startx;
+    int starty;
+    int score;
 };
 
 struct scoreboard *scoreboard_new(struct map *m, struct snake *s);

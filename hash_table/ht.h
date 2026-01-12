@@ -2,15 +2,15 @@
 #define HASH_TABLE_H
 
 struct ht_entry {
-  char *key;
-  char *value;
+    char *key;
+    char *value;
 };
 
 struct ht {
-  int base_size;
-  int size;
-  int count;
-  struct ht_entry **entries;
+    int base_size;
+    int size;
+    int count;
+    struct ht_entry **entries;
 };
 
 struct ht *ht_new(void);

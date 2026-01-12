@@ -4,11 +4,11 @@
 #include <ncurses.h>
 
 struct playagain {
-  WINDOW *win;
-  int width;
-  int height;
-  int startx;
-  int starty;
+    WINDOW *win;
+    int width;
+    int height;
+    int startx;
+    int starty;
 };
 
 int playagain_run(int score);

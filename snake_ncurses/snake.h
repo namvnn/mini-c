@@ -4,24 +4,24 @@
 #include "map.h"
 
 struct snake_body {
-  int width;
-  int height;
-  int x;
-  int y;
+    int width;
+    int height;
+    int x;
+    int y;
 };
 
 enum snake_direction {
-  NORTH,
-  EAST,
-  SOUTH,
-  WEST,
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST,
 };
 
 struct snake {
-  struct snake_body *body;
-  enum snake_direction direction;
-  int length;
-  int color;
+    struct snake_body *body;
+    enum snake_direction direction;
+    int length;
+    int color;
 };
 
 struct snake *snake_new(struct map *m);

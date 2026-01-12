@@ -4,13 +4,13 @@
 #include <stdbool.h>
 
 struct node {
-  int data;
-  struct node *next;
+    int data;
+    struct node *next;
 };
 
 struct sll {
-  struct node *head;
-  struct node *tail;
+    struct node *head;
+    struct node *tail;
 };
 
 struct node *node_new(int val);

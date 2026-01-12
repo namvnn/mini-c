@@ -4,13 +4,13 @@
 #include <ncurses.h>
 
 struct map {
-  WINDOW *win;
-  int height;
-  int width;
-  int startx;
-  int starty;
-  int border_size;
-  void (*draw_point)(struct map *m, int x, int y, int color);
+    WINDOW *win;
+    int height;
+    int width;
+    int startx;
+    int starty;
+    int border_size;
+    void (*draw_point)(struct map *m, int x, int y, int color);
 };
 
 struct map *map_new(void);

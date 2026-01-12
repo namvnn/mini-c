@@ -7,11 +7,11 @@
 #include "scoreboard.h"
 
 struct help {
-  WINDOW *win;
-  int width;
-  int height;
-  int startx;
-  int starty;
+    WINDOW *win;
+    int width;
+    int height;
+    int startx;
+    int starty;
 };
 
 struct help *help_new(struct map *m, struct scoreboard *sb);
