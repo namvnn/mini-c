@@ -4,7 +4,7 @@ CFLAGS   := -std=c99 -Wall -Werror -Wextra
 LDFLAGS  :=
 LDLIBS   := -lcurses
 
-TARGET := snake
+TARGET := bin/snake
 SRC    := $(wildcard *.c)
 OBJS   := $(SRC:.c=.o)
 DFS    := $(SRC:.c=.d)
@@ -18,6 +18,7 @@ else
 endif
 
 $(TARGET): $(OBJS)
+	mkdir -p $$(dirname $(TARGET))
 	$(CC) $(LDFLAGS) $(LDLIBS) -o $@ $^
 
 %.o: %.c
