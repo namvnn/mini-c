@@ -11,11 +11,11 @@
 int main(void) {
     srand(time(NULL));
 
-    initscr();            // Initialize the screen
-    cbreak();             // Disable line buffering
-    noecho();             // Do not show typed characters
+    initscr();            // Initialize curses
+    cbreak();             // Take input chars one at a time, no wait for \n
+    noecho();             // Do not echo key presses to screen
     curs_set(false);      // Hide the cursor
-    keypad(stdscr, true); // Enable special keys like arrows
+    keypad(stdscr, true); // Allow special keys like arrows
     start_color();        // Enable colors (create colors and color pairs)
     use_default_colors(); // Allow default terminal colors
     refresh();            // Draw the screen
