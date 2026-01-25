@@ -32,8 +32,10 @@
   > - All identifiers that begin with an underscore are always reserved for use
   >   as identifiers with file scope in both the ordinary and tag name spaces.
 
-- Do not use `typedef` for structures and pointers.
+- Do not use `typedef` for structures and pointers [^3].
 
 [^1]: [General rules | MaJerle/c-code-style: Recommended C style and coding
-rules](https://github.com/MaJerle/c-code-style?tab=readme-ov-file#general-rules)
+    rules](https://github.com/MaJerle/c-code-style?tab=readme-ov-file#general-rules)
 [^2]: [use _ and __ in C programs](https://stackoverflow.com/a/25090719)
+[^3]: [Typedefs | Linux kernel coding
+    style](https://www.kernel.org/doc/html/latest/process/coding-style.html#typedefs)
