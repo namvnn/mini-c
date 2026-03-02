@@ -27,14 +27,12 @@ int main(void) {
     use_default_colors(); // Allow default terminal colors
     refresh();            // Draw the screen TODO: need this?
 
-    board = newwin(rows + 2, cols * 2 + 2, (LINES - (rows + 2)) / 2,
-                   (COLS - (cols * 2 + 2)) / 2);
-    next = newwin(6, 10, (LINES - (rows + 2)) / 2,
-                  ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
-    hold = newwin(6, 10, (LINES - (rows + 2)) / 2 + 8,
-                  ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
-    score = newwin(6, 10, (LINES - (rows + 2)) / 2 + 16,
-                   ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
+    // clang-format off
+    board = newwin(rows + 2, cols * 2 + 2, (LINES - (rows + 2)) / 2,      (COLS - (cols * 2 + 2)) / 2);
+    next  = newwin(6,        10,           (LINES - (rows + 2)) / 2,      ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
+    hold  = newwin(6,        10,           (LINES - (rows + 2)) / 2 + 8,  ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
+    score = newwin(6,        10,           (LINES - (rows + 2)) / 2 + 16, ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
+    // clang-format on
 
     while (running) {
         display_board(board);
