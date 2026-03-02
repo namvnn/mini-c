@@ -22,14 +22,19 @@ int main(void) {
     noecho();             // Do not echo key presses to screen
     curs_set(false);      // Hide the cursor
     keypad(stdscr, true); // Allow special keys like arrows
+    timeout(0);           // Make getting char non-blocking
     start_color();        // Enable colors (create colors and color pairs)
     use_default_colors(); // Allow default terminal colors
     refresh();            // Draw the screen TODO: need this?
 
-    board = newwin(rows + 2, cols * 2 + 2, 0, 0);
-    next = newwin(6, 10, 0, cols * 2 + 2 + 1);
-    hold = newwin(6, 10, 6, cols * 2 + 2 + 1);
-    score = newwin(6, 10, 12, cols * 2 + 2 + 1);
+    board = newwin(rows + 2, cols * 2 + 2, (LINES - (rows + 2)) / 2,
+                   (COLS - (cols * 2 + 2)) / 2);
+    next = newwin(6, 10, (LINES - (rows + 2)) / 2,
+                  ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
+    hold = newwin(6, 10, (LINES - (rows + 2)) / 2 + 8,
+                  ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
+    score = newwin(6, 10, (LINES - (rows + 2)) / 2 + 16,
+                   ((COLS - 10) / 2) + (cols * 2 + 2 + 1));
 
     while (running) {
         display_board(board);
@@ -89,7 +94,9 @@ void display_hold(WINDOW *w) {
 }
 
 void display_score(WINDOW *w) {
-    box(w, 0, 0);
+    werase(w);
+    wprintw(w, "Score %d\n", 0);
+    wprintw(w, "Level %d\n", 1);
     wnoutrefresh(w);
 }
 
