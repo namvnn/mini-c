@@ -7,7 +7,7 @@
 - Private symbols: `__`, two underscores between prefix and symbol name.
 - Public symbols: `_`, one underscore between prefix and symbol name.
 - Files: `snake_case`.
-- Folders: `snake_case`.
+- Directories: `snake_case`.
 - Macros: `SCREAMING_SNAKE_CASE`.
 - Constants: `SCREAMING_SNAKE_CASE`.
 - Structs: `snake_case`.
