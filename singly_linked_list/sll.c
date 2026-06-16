@@ -81,8 +81,7 @@ void sll_remove_tail(struct sll *list) {
 
     struct node *penultimate = NULL;
 
-    for (struct node *current = list->head; current->next != NULL;
-         current = current->next) {
+    for (struct node *current = list->head; current->next != NULL; current = current->next) {
         penultimate = current;
     }
 

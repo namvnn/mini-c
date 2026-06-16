@@ -15,15 +15,13 @@ void fizzbuzz(char buf[], size_t buf_size, size_t up_to) {
         const char *suffix = i == up_to ? "." : ", ";
 
         if (i % 15 == 0) {
-            written_size = snprintf(curr_pos, remaining_size, "FizzBuzz%s",
-                                    suffix);
+            written_size = snprintf(curr_pos, remaining_size, "FizzBuzz%s", suffix);
         } else if (i % 3 == 0) {
             written_size = snprintf(curr_pos, remaining_size, "Fizz%s", suffix);
         } else if (i % 5 == 0) {
             written_size = snprintf(curr_pos, remaining_size, "Buzz%s", suffix);
         } else {
-            written_size = snprintf(curr_pos, remaining_size, "%zu%s", i,
-                                    suffix);
+            written_size = snprintf(curr_pos, remaining_size, "%zu%s", i, suffix);
         }
 
         if (written_size < 0) {

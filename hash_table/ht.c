@@ -94,8 +94,7 @@ static int ht__hash(const char *s, const int a, const int m) {
     return (int)h;
 }
 
-static int ht__gethash(const char *s, const int num_buckets,
-                       const int attempt) {
+static int ht__gethash(const char *s, const int num_buckets, const int attempt) {
     const int hash_a = ht__hash(s, HT__PRIME_1, num_buckets);
     if (attempt == 0) {
         return hash_a;

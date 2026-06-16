@@ -28,16 +28,17 @@ static void playagain__draw(struct playagain *pa, int score) {
     box(pa->win, 0, 0);
 
     int score_strlen = (int)log10(score) + 1;
-    mvwprintw(pa->win, 4,
-              (pa->width - strlen(playagain__TITLE) - score_strlen) / 2,
-              playagain__TITLE, score);
+    mvwprintw(
+        pa->win, 4, (pa->width - strlen(playagain__TITLE) - score_strlen) / 2, playagain__TITLE,
+        score
+    );
 
-    int desc_len =
-        (sizeof(playagain__DESCRIPTION) / sizeof(playagain__DESCRIPTION[0]));
+    int desc_len = (sizeof(playagain__DESCRIPTION) / sizeof(playagain__DESCRIPTION[0]));
     for (int i = 0; i < desc_len; i++) {
-        mvwprintw(pa->win, 6 + i,
-                  (pa->width - strlen(playagain__DESCRIPTION[i])) / 2,
-                  playagain__DESCRIPTION[i]);
+        mvwprintw(
+            pa->win, 6 + i, (pa->width - strlen(playagain__DESCRIPTION[i])) / 2,
+            playagain__DESCRIPTION[i]
+        );
     }
 
     wrefresh(pa->win);

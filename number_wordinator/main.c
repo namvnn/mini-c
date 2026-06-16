@@ -3,20 +3,20 @@
 #include <string.h>
 
 char *ONES[] = {
-    "zero",    "one",     "two",       "three",    "four",
-    "five",    "six",     "seven",     "eight",    "nine",
-    "ten",     "eleven",  "twelve",    "thirteen", "fourteen",
-    "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
+    "zero",    "one",     "two",       "three",    "four",     //
+    "five",    "six",     "seven",     "eight",    "nine",     //
+    "ten",     "eleven",  "twelve",    "thirteen", "fourteen", //
+    "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", //
 };
 
 char *TENS[] = {
-    "",      "",      "twenty",  "thirty", "forty",
-    "fifty", "sixty", "seventy", "eighty", "ninety",
+    "",      "",      "twenty",  "thirty", "forty",  //
+    "fifty", "sixty", "seventy", "eighty", "ninety", //
 };
 
 char *SCALES[] = {
-    "",         "thousand",    "million",     "billion",
-    "trillion", "quadrillion", "quintillion",
+    "",         "thousand",    "million",     "billion", //
+    "trillion", "quadrillion", "quintillion",            //
 };
 
 const size_t MAX_GROUP_SIZE = 3;
@@ -26,8 +26,7 @@ struct testcase {
     char *expected;
 };
 
-void number_wordinator(char output[], size_t output_size, char input_digits[],
-                       size_t input_len) {
+void number_wordinator(char output[], size_t output_size, char input_digits[], size_t input_len) {
     size_t group_total = (input_len + MAX_GROUP_SIZE - 1) / MAX_GROUP_SIZE;
     size_t output_len = 0;
 
@@ -59,35 +58,36 @@ void number_wordinator(char output[], size_t output_size, char input_digits[],
             char *format = temp_number % 100 == 0 ? "%s hundred"
                                                   : "%s hundred "
                                                     "and ";
-            output_len += snprintf(output + output_len,
-                                   output_size - output_len, format,
-                                   ONES[temp_number / 100]);
+            output_len += snprintf(
+                output + output_len, output_size - output_len, format, ONES[temp_number / 100]
+            );
             temp_number %= 100;
         }
         if (temp_number >= 20) {
             char *format = temp_number % 10 == 0 ? "%s" : "%s-";
-            output_len += snprintf(output + output_len,
-                                   output_size - output_len, format,
-                                   TENS[temp_number / 10]);
+            output_len += snprintf(
+                output + output_len, output_size - output_len, format, TENS[temp_number / 10]
+            );
             temp_number %= 10;
         }
         if (temp_number > 0) {
             char *format = "%s";
-            output_len += snprintf(output + output_len,
-                                   output_size - output_len, format,
-                                   ONES[temp_number]);
+            output_len += snprintf(
+                output + output_len, output_size - output_len, format, ONES[temp_number]
+            );
         }
 
         size_t scale_index = group_total - 1 - group_i;
         if (number > 0 && scale_index > 0) {
             char *format = " %s, ";
-            output_len += snprintf(output + output_len,
-                                   output_size - output_len, format,
-                                   SCALES[scale_index]);
+            output_len += snprintf(
+                output + output_len, output_size - output_len, format, SCALES[scale_index]
+            );
         }
     }
 
-    if (output_len >= 2 &&               //
+    if (
+        output_len >= 2 &&               //
         output[output_len - 2] == ',' && //
         output[output_len - 1] == ' '    //
     ) {

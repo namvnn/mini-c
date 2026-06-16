@@ -580,9 +580,8 @@ void display_next(WINDOW *win, struct tetris *tt) {
     for (i = 0; i < N_CELLS_PER_TETROMINO; i++) {
         tl = TETROMINOS[tt->next.cell][tt->next.ori][i];
         r = tl.row * ROWS_PER_CELL + 2;
-        c = tt->next.cell == C_O || tt->next.cell == C_I
-                ? tl.col * COLS_PER_CELL + 1
-                : tl.col * COLS_PER_CELL + 2;
+        c = tt->next.cell == C_O || tt->next.cell == C_I ? tl.col * COLS_PER_CELL + 1
+                                                         : tl.col * COLS_PER_CELL + 2;
         wmove(win, r, c);
         fill_solid(win, tt->next.cell);
     }
@@ -606,9 +605,8 @@ void display_hold(WINDOW *win, struct tetris *tt) {
     for (i = 0; i < N_CELLS_PER_TETROMINO; i++) {
         tl = TETROMINOS[tt->hold.cell][tt->hold.ori][i];
         r = tl.row * ROWS_PER_CELL + 2;
-        c = tt->hold.cell == C_O || tt->hold.cell == C_I
-                ? tl.col * COLS_PER_CELL + 1
-                : tl.col * COLS_PER_CELL + 2;
+        c = tt->hold.cell == C_O || tt->hold.cell == C_I ? tl.col * COLS_PER_CELL + 1
+                                                         : tl.col * COLS_PER_CELL + 2;
         wmove(win, r, c);
         fill_solid(win, tt->hold.cell);
     }
