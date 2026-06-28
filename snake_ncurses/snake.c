@@ -102,7 +102,7 @@ bool snake_hit_itself(struct snake *s) {
 }
 
 bool snake_hit_map_wall(struct snake *s, struct map *m) {
-    return s->body[0].x <= 0 || s->body[0].x >= m->width - m->border_size || //
+    return s->body[0].x <= 0 || s->body[0].x >= m->width - m->border_size ||  //
            s->body[0].y <= 0 || s->body[0].y >= m->height - m->border_size;
 }
 

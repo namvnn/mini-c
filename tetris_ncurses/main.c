@@ -16,7 +16,7 @@ const int ROWS_PER_CELL = 1;
 const int COLS_PER_CELL = 2;
 
 const int N_CELLS_PER_TETROMINO = 4;
-const int N_TETROMINO_CELL = 7; // The first 7 members of the `cell_t` enum
+const int N_TETROMINO_CELL = 7;  // The first 7 members of the `cell_t` enum
 const int N_ORIENTATIONS = 4;
 
 enum cell_t {
@@ -169,14 +169,14 @@ int main(void) {
     struct tetris *tt = create_tetris(22, 10);
     enum falling_action f_action = FA_NONE;
 
-    initscr();            // Initialize curses
-    cbreak();             // Take input chars one at a time, no wait for \n
-    noecho();             // Do not echo key presses to screen
-    curs_set(false);      // Hide the cursor
-    keypad(stdscr, true); // Allow special keys like arrows
-    timeout(0);           // Make getting char non-blocking
-    start_color();        // Enable colors (create colors and color pairs)
-    use_default_colors(); // Allow default terminal colors
+    initscr();             // Initialize curses
+    cbreak();              // Take input chars one at a time, no wait for \n
+    noecho();              // Do not echo key presses to screen
+    curs_set(false);       // Hide the cursor
+    keypad(stdscr, true);  // Allow special keys like arrows
+    timeout(0);            // Make getting char non-blocking
+    start_color();         // Enable colors (create colors and color pairs)
+    use_default_colors();  // Allow default terminal colors
     init_pair(CELL_TO_COLOR(C_I), -1, COLOR_CYAN);
     init_pair(CELL_TO_COLOR(C_J), -1, COLOR_BLUE);
     init_pair(CELL_TO_COLOR(C_L), -1, COLOR_WHITE);
@@ -580,8 +580,9 @@ void display_next(WINDOW *win, struct tetris *tt) {
     for (i = 0; i < N_CELLS_PER_TETROMINO; i++) {
         tl = TETROMINOS[tt->next.cell][tt->next.ori][i];
         r = tl.row * ROWS_PER_CELL + 2;
-        c = tt->next.cell == C_O || tt->next.cell == C_I ? tl.col * COLS_PER_CELL + 1
-                                                         : tl.col * COLS_PER_CELL + 2;
+        c = tt->next.cell == C_O || tt->next.cell == C_I
+                ? tl.col * COLS_PER_CELL + 1
+                : tl.col * COLS_PER_CELL + 2;
         wmove(win, r, c);
         fill_solid(win, tt->next.cell);
     }
@@ -605,8 +606,9 @@ void display_hold(WINDOW *win, struct tetris *tt) {
     for (i = 0; i < N_CELLS_PER_TETROMINO; i++) {
         tl = TETROMINOS[tt->hold.cell][tt->hold.ori][i];
         r = tl.row * ROWS_PER_CELL + 2;
-        c = tt->hold.cell == C_O || tt->hold.cell == C_I ? tl.col * COLS_PER_CELL + 1
-                                                         : tl.col * COLS_PER_CELL + 2;
+        c = tt->hold.cell == C_O || tt->hold.cell == C_I
+                ? tl.col * COLS_PER_CELL + 1
+                : tl.col * COLS_PER_CELL + 2;
         wmove(win, r, c);
         fill_solid(win, tt->hold.cell);
     }

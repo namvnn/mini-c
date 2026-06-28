@@ -3,20 +3,20 @@
 #include <string.h>
 
 char *ONES[] = {
-    "zero",    "one",     "two",       "three",    "four",     //
-    "five",    "six",     "seven",     "eight",    "nine",     //
-    "ten",     "eleven",  "twelve",    "thirteen", "fourteen", //
-    "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", //
+    "zero",    "one",     "two",       "three",    "four",      //
+    "five",    "six",     "seven",     "eight",    "nine",      //
+    "ten",     "eleven",  "twelve",    "thirteen", "fourteen",  //
+    "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",  //
 };
 
 char *TENS[] = {
-    "",      "",      "twenty",  "thirty", "forty",  //
-    "fifty", "sixty", "seventy", "eighty", "ninety", //
+    "",      "",      "twenty",  "thirty", "forty",   //
+    "fifty", "sixty", "seventy", "eighty", "ninety",  //
 };
 
 char *SCALES[] = {
-    "",         "thousand",    "million",     "billion", //
-    "trillion", "quadrillion", "quintillion",            //
+    "",         "thousand",    "million",     "billion",  //
+    "trillion", "quadrillion", "quintillion",             //
 };
 
 const size_t MAX_GROUP_SIZE = 3;
@@ -26,12 +26,13 @@ struct testcase {
     char *expected;
 };
 
-void number_wordinator(char output[], size_t output_size, char input_digits[], size_t input_len) {
+void number_wordinator(char output[], size_t output_size, char input_digits[],
+                       size_t input_len) {
     size_t group_total = (input_len + MAX_GROUP_SIZE - 1) / MAX_GROUP_SIZE;
     size_t output_len = 0;
 
     for (size_t group_i = 0; group_i < group_total; group_i++) {
-        char group[3] = { '0', '0', '0' };
+        char group[3] = {'0', '0', '0'};
 
         int input_offset_i = group_i * MAX_GROUP_SIZE;
         if (input_len % MAX_GROUP_SIZE != 0) {
@@ -45,8 +46,8 @@ void number_wordinator(char output[], size_t output_size, char input_digits[], s
             }
         }
 
-        int number = (group[0] - '0') * 100 + //
-                     (group[1] - '0') * 10 +  //
+        int number = (group[0] - '0') * 100 +  //
+                     (group[1] - '0') * 10 +   //
                      (group[2] - '0');
 
         if (number == 0) {
@@ -58,38 +59,37 @@ void number_wordinator(char output[], size_t output_size, char input_digits[], s
             char *format = temp_number % 100 == 0 ? "%s hundred"
                                                   : "%s hundred "
                                                     "and ";
-            output_len += snprintf(
-                output + output_len, output_size - output_len, format, ONES[temp_number / 100]
-            );
+            output_len +=
+                snprintf(output + output_len, output_size - output_len, format,
+                         ONES[temp_number / 100]);
             temp_number %= 100;
         }
         if (temp_number >= 20) {
             char *format = temp_number % 10 == 0 ? "%s" : "%s-";
-            output_len += snprintf(
-                output + output_len, output_size - output_len, format, TENS[temp_number / 10]
-            );
+            output_len +=
+                snprintf(output + output_len, output_size - output_len, format,
+                         TENS[temp_number / 10]);
             temp_number %= 10;
         }
         if (temp_number > 0) {
             char *format = "%s";
-            output_len += snprintf(
-                output + output_len, output_size - output_len, format, ONES[temp_number]
-            );
+            output_len +=
+                snprintf(output + output_len, output_size - output_len, format,
+                         ONES[temp_number]);
         }
 
         size_t scale_index = group_total - 1 - group_i;
         if (number > 0 && scale_index > 0) {
             char *format = " %s, ";
-            output_len += snprintf(
-                output + output_len, output_size - output_len, format, SCALES[scale_index]
-            );
+            output_len +=
+                snprintf(output + output_len, output_size - output_len, format,
+                         SCALES[scale_index]);
         }
     }
 
-    if (
-        output_len >= 2 &&               //
-        output[output_len - 2] == ',' && //
-        output[output_len - 1] == ' '    //
+    if (output_len >= 2 &&                //
+        output[output_len - 2] == ',' &&  //
+        output[output_len - 1] == ' '     //
     ) {
         output[output_len - 2] = '\0';
         output[output_len - 1] = '\0';
@@ -293,7 +293,7 @@ int main(void) {
         struct testcase tc = testcases[i];
         char *input = tc.input;
         size_t input_len = strlen(input);
-        char output[1000] = { 0 };
+        char output[1000] = {0};
         size_t output_size = sizeof(output);
         char *expected = tc.expected;
 

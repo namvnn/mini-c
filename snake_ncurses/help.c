@@ -7,11 +7,11 @@
 
 static const char *help__TITLE = "Help";
 static const char *help__DESCRIPTION[5] = {
-    "Up     w, up arrow",    //
-    "Right  a, right arrow", //
-    "Down   s, down arrow",  //
-    "Left   d, left arrow",  //
-    "Quit   q",              //
+    "Up     w, up arrow",     //
+    "Right  a, right arrow",  //
+    "Down   s, down arrow",   //
+    "Left   d, left arrow",   //
+    "Quit   q",               //
 };
 
 struct help *help_new(struct map *m, struct scoreboard *sb) {
@@ -19,8 +19,9 @@ struct help *help_new(struct map *m, struct scoreboard *sb) {
 
     h->width = 26;
     h->height = 9;
-    h->startx = m->startx - h->width - 2;   // 2 is gap between help and map
-    h->starty = m->starty + sb->height + 1; // 1 is gap between help and scoreboard
+    h->startx = m->startx - h->width - 2;  // 2 is gap between help and map
+    h->starty =
+        m->starty + sb->height + 1;  // 1 is gap between help and scoreboard
     h->win = newwin(h->height, h->width, h->starty, h->startx);
 
     return h;

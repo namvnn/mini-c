@@ -9,8 +9,8 @@
 static const int HT__PRIME_1 = 151;
 static const int HT__PRIME_2 = 163;
 static const int HT__INITIAL_BASE_SIZE = 50;
-static struct ht_entry HT__DELETED_ENTRY = { NULL, NULL };
-static const int HT__LOAD_RANGE[2] = { 10, 70 };
+static struct ht_entry HT__DELETED_ENTRY = {NULL, NULL};
+static const int HT__LOAD_RANGE[2] = {10, 70};
 
 static struct ht_entry *ht_entry__new(const char *k, const char *v) {
     struct ht_entry *entry = malloc(sizeof(struct ht_entry));
@@ -94,7 +94,8 @@ static int ht__hash(const char *s, const int a, const int m) {
     return (int)h;
 }
 
-static int ht__gethash(const char *s, const int num_buckets, const int attempt) {
+static int ht__gethash(const char *s, const int num_buckets,
+                       const int attempt) {
     const int hash_a = ht__hash(s, HT__PRIME_1, num_buckets);
     if (attempt == 0) {
         return hash_a;
