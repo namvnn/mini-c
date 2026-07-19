@@ -7,7 +7,7 @@ LDLIBS   := -lcurses
 TARGET := bin/tetris
 SRC    := $(wildcard *.c)
 OBJS   := $(SRC:.c=.o)
-DFS    := $(SRC:.c=.d)
+DS     := $(SRC:.c=.d)
 
 DEV := 0
 
@@ -24,7 +24,7 @@ $(TARGET): $(OBJS)
 %.o: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
--include $(DFS)
+-include $(DS)
 
 .PHONY: run
 run: $(TARGET)
@@ -32,4 +32,4 @@ run: $(TARGET)
 
 .PHONY: clean
 clean:
-	rm -rf $(OBJS) $(DFS) $(TARGET)
+	rm -rf $(OBJS) $(DS) $(TARGET)
