@@ -12,6 +12,7 @@ learning purposes:
 7. [Prime Sieve](./prime_sieve)
 8. [Number Wordinator](./number_wordinator)
 9. [Tetris NCURSES](./tetris_ncurses)
+10. [HTTP Web Server](./webserver)
 
 ## License
 
