@@ -37,6 +37,17 @@ int main(void) {
     }
     printf("socket created successfully\n");
 
+    // Set socket option to enable local address reuse
+    // Issue: Address already in use
+    // Reason: Socket can enter a TIME_WAIT state
+    // Debug: netstat -nlt | grep '8080'
+    // Reference: https://stackoverflow.com/q/5106674
+    int option = 1;
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option)) < 0) {
+        perror("HTTP webserver (sockopt)");
+        return 1;
+    }
+
     // Create the address to bind the socket to
     struct sockaddr_in host_addr;
     int host_addrlen = sizeof(host_addr);
@@ -46,14 +57,14 @@ int main(void) {
     host_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     // Bind the socket to the address
-    if (bind(sockfd, (struct sockaddr *)&host_addr, host_addrlen) != 0) {
+    if (bind(sockfd, (struct sockaddr *)&host_addr, host_addrlen) < 0) {
         perror("HTTP webserver (bind)");
         return 1;
     }
     printf("socket bound to address successfully\n");
 
     // Listen for incoming connections
-    if (listen(sockfd, SOMAXCONN) != 0) {
+    if (listen(sockfd, SOMAXCONN) < 0) {
         perror("HTTP webserver (listen)");
         return 1;
     }
@@ -85,7 +96,7 @@ int main(void) {
             continue;
         }
 
-        // Read teh request
+        // Read the request
         char method[BUFFER_SIZE], uri[BUFFER_SIZE], version[BUFFER_SIZE];
         sscanf(buffer, "%s %s %s", method, uri, version);
         printf("[%s:%u] %s %s %s\n", inet_ntoa(client_addr.sin_addr),
