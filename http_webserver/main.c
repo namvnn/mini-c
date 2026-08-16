@@ -2,6 +2,7 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #define PORT 8080
@@ -21,17 +22,16 @@
 //    +----------- connection -----------+
 
 int main(void) {
-    char buffer[BUFFER_SIZE];
-    char resp[] =
+    char req[BUFFER_SIZE];
+    char resp[BUFFER_SIZE] =
         "HTTP/1.0 200 OK\r\n"
         "Server: http-webserver-c\r\n"
-        "Content-Type: text/html\r\n\r\n"
-        "<html><head><title>HTTP Webserver in C</title></head><body>Hello, "
-        "World!</body></html>\r\n";
+        "Content-Type: text/html\r\n\r\n";
+    size_t resp_prefix_length = strlen(resp);
 
     // Create a socket
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd == -1) {
+    if (sockfd < 0) {
         perror("HTTP webserver (socket)");
         return 1;
     }
@@ -94,7 +94,7 @@ int main(void) {
         }
 
         // Read from the socket
-        int valread = read(client_sockfd, buffer, BUFFER_SIZE);
+        int valread = read(client_sockfd, req, BUFFER_SIZE);
         if (valread < 0) {
             perror("HTTP webserver (read)");
             continue;
@@ -102,13 +102,33 @@ int main(void) {
 
         // Read the request
         char method[BUFFER_SIZE], uri[BUFFER_SIZE], version[BUFFER_SIZE];
-        sscanf(buffer, "%s %s %s", method, uri, version);
+        sscanf(req, "%s %s %s", method, uri, version);
         printf("[%s:%u] %s %s %s\n",
                inet_ntoa(client_addr.sin_addr),
                ntohs(client_addr.sin_port),
                method,
                uri,
                version);
+
+        // Write the response
+        char *filename = "static/index.html";
+        FILE *file = fopen(filename, "r");
+        if (!file) {
+            perror("HTTP webserver (fopen)");
+            continue;
+        }
+        struct stat filestat;
+        if (stat(filename, &filestat) < 0) {
+            perror("HTTP webserver (stat)");
+            continue;
+        }
+        size_t rbytes =
+            fread(resp + resp_prefix_length, 1, filestat.st_size, file);
+        if (rbytes < 0) {
+            perror("HTTP webserver (fread)");
+            continue;
+        }
+        resp[resp_prefix_length + rbytes] = '\0';
 
         // Write to the socket
         int valwrite = write(client_sockfd, resp, strlen(resp));
