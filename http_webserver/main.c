@@ -43,7 +43,9 @@ int main(void) {
     // Debug: netstat -nlt | grep '8080'
     // Reference: https://stackoverflow.com/q/5106674
     int option = 1;
-    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option)) < 0) {
+    int sockopt =
+        setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
+    if (sockopt < 0) {
         perror("HTTP webserver (sockopt)");
         return 1;
     }
@@ -72,7 +74,8 @@ int main(void) {
 
     for (;;) {
         // Accept incoming connections
-        int client_sockfd = accept(sockfd, (struct sockaddr *)&host_addr,
+        int client_sockfd = accept(sockfd,
+                                   (struct sockaddr *)&host_addr,
                                    (socklen_t *)&host_addrlen);
         if (client_sockfd < 0) {
             perror("HTTP webserver (accept)");
@@ -82,7 +85,8 @@ int main(void) {
         // Get client address
         struct sockaddr_in client_addr;
         int client_addrlen = sizeof(client_addr);
-        int sockn = getsockname(client_sockfd, (struct sockaddr *)&client_addr,
+        int sockn = getsockname(client_sockfd,
+                                (struct sockaddr *)&client_addr,
                                 (socklen_t *)&client_addrlen);
         if (sockn < 0) {
             perror("HTTP webserver (getsockname)");
@@ -99,8 +103,12 @@ int main(void) {
         // Read the request
         char method[BUFFER_SIZE], uri[BUFFER_SIZE], version[BUFFER_SIZE];
         sscanf(buffer, "%s %s %s", method, uri, version);
-        printf("[%s:%u] %s %s %s\n", inet_ntoa(client_addr.sin_addr),
-               ntohs(client_addr.sin_port), method, uri, version);
+        printf("[%s:%u] %s %s %s\n",
+               inet_ntoa(client_addr.sin_addr),
+               ntohs(client_addr.sin_port),
+               method,
+               uri,
+               version);
 
         // Write to the socket
         int valwrite = write(client_sockfd, resp, strlen(resp));

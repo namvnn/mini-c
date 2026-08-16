@@ -37,5 +37,6 @@ int main(void) {
     }
 
     printf("\n\nThere are %zu prime numbers up to the number %zu.\n",
-           prime_count, MAX_NUMBER);
+           prime_count,
+           MAX_NUMBER);
 }

@@ -26,13 +26,16 @@ static struct welcome *welcome__new(void) {
 static void welcome__draw(struct welcome *wc) {
     box(wc->win, 0, 0);
 
-    mvwprintw(wc->win, 4, (wc->width - strlen(welcome__TITLE)) / 2,
+    mvwprintw(wc->win,
+              4,
+              (wc->width - strlen(welcome__TITLE)) / 2,
               welcome__TITLE);
 
     int desc_len =
         (sizeof(welcome__DESCRIPTION) / sizeof(welcome__DESCRIPTION[0]));
     for (int i = 0; i < desc_len; i++) {
-        mvwprintw(wc->win, 6 + i,
+        mvwprintw(wc->win,
+                  6 + i,
                   (wc->width - strlen(welcome__DESCRIPTION[i])) / 2,
                   welcome__DESCRIPTION[i]);
     }
