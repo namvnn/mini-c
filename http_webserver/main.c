@@ -70,7 +70,7 @@ int main(void) {
         perror("HTTP webserver (listen)");
         return 1;
     }
-    printf("server listening for connections\n");
+    printf("server listening for connections: http://localhost:%d\n", PORT);
 
     for (;;) {
         // Accept incoming connections
