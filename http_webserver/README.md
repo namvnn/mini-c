@@ -1,6 +1,6 @@
 # HTTP Web Server
 
-A simple HTTP web server that handles incoming requests and returns responses.
+A simple HTTP static web server that sends its hosted files as-is to clients.
 
 References:
 
